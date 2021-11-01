@@ -32,6 +32,5 @@ class Lexer {
     
     func getNextToken() -> Token? {
         return nil
-        
     }
 }
