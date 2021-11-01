@@ -10,6 +10,9 @@
 		842E7F7F272E1DCC007C3DEE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F7E272E1DCC007C3DEE /* main.swift */; };
 		842E7F87272E1E6E007C3DEE /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 842E7F86272E1E6E007C3DEE /* ArgumentParser */; };
 		842E7F8A272E25F1007C3DEE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F89272E25F1007C3DEE /* Token.swift */; };
+		842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F8D272E30DE007C3DEE /* Lexer.swift */; };
+		842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */; };
+		842E7F93272F8605007C3DEE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F92272F8605007C3DEE /* Stack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +31,9 @@
 		842E7F7B272E1DCC007C3DEE /* scc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scc; sourceTree = BUILT_PRODUCTS_DIR; };
 		842E7F7E272E1DCC007C3DEE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		842E7F89272E25F1007C3DEE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		842E7F8D272E30DE007C3DEE /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
+		842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
+		842E7F92272F8605007C3DEE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 		842E7F72272E1DCC007C3DEE = {
 			isa = PBXGroup;
 			children = (
+				842E7F8F272F8199007C3DEE /* utils */,
 				842E7F88272E25D2007C3DEE /* lexer */,
 				842E7F7D272E1DCC007C3DEE /* scc */,
 				842E7F7C272E1DCC007C3DEE /* Products */,
@@ -70,9 +77,19 @@
 		842E7F88272E25D2007C3DEE /* lexer */ = {
 			isa = PBXGroup;
 			children = (
+				842E7F8D272E30DE007C3DEE /* Lexer.swift */,
 				842E7F89272E25F1007C3DEE /* Token.swift */,
 			);
 			path = lexer;
+			sourceTree = "<group>";
+		};
+		842E7F8F272F8199007C3DEE /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */,
+				842E7F92272F8605007C3DEE /* Stack.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				842E7F7F272E1DCC007C3DEE /* main.swift in Sources */,
+				842E7F93272F8605007C3DEE /* Stack.swift in Sources */,
+				842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */,
+				842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */,
 				842E7F8A272E25F1007C3DEE /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

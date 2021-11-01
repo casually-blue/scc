@@ -34,15 +34,22 @@ enum TokenType: CustomStringConvertible {
     }
 }
 
-
-struct Span: CustomStringConvertible {
+struct FilePoint: CustomStringConvertible {
     var row: Int
     var col: Int
+    
+    public var description: String {
+        return "\(row):\(col)"
+    }
+}
+
+struct Span: CustomStringConvertible {
+    var position: FilePoint
     var file: String
     var length: Int
     
     public var description: String {
-        return "\(row):\(col):\(file)"
+        return "\(position):\(file)"
     }
 }
 
