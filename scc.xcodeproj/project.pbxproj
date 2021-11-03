@@ -13,6 +13,10 @@
 		842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F8D272E30DE007C3DEE /* Lexer.swift */; };
 		842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */; };
 		842E7F93272F8605007C3DEE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F92272F8605007C3DEE /* Stack.swift */; };
+		842E7F9527304420007C3DEE /* InputProto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F942730441F007C3DEE /* InputProto.swift */; };
+		842E7F982732047F007C3DEE /* AST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F972732047F007C3DEE /* AST.swift */; };
+		842E7F9A27320A9E007C3DEE /* FileStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F9927320A9E007C3DEE /* FileStream.swift */; };
+		842E7F9C2732D45D007C3DEE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F9B2732D45D007C3DEE /* Parser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +38,10 @@
 		842E7F8D272E30DE007C3DEE /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		842E7F92272F8605007C3DEE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		842E7F942730441F007C3DEE /* InputProto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProto.swift; sourceTree = "<group>"; };
+		842E7F972732047F007C3DEE /* AST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AST.swift; sourceTree = "<group>"; };
+		842E7F9927320A9E007C3DEE /* FileStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStream.swift; sourceTree = "<group>"; };
+		842E7F9B2732D45D007C3DEE /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +59,7 @@
 		842E7F72272E1DCC007C3DEE = {
 			isa = PBXGroup;
 			children = (
+				842E7F962732045D007C3DEE /* parser */,
 				842E7F8F272F8199007C3DEE /* utils */,
 				842E7F88272E25D2007C3DEE /* lexer */,
 				842E7F7D272E1DCC007C3DEE /* scc */,
@@ -79,6 +88,7 @@
 			children = (
 				842E7F8D272E30DE007C3DEE /* Lexer.swift */,
 				842E7F89272E25F1007C3DEE /* Token.swift */,
+				842E7F942730441F007C3DEE /* InputProto.swift */,
 			);
 			path = lexer;
 			sourceTree = "<group>";
@@ -88,8 +98,18 @@
 			children = (
 				842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */,
 				842E7F92272F8605007C3DEE /* Stack.swift */,
+				842E7F9927320A9E007C3DEE /* FileStream.swift */,
 			);
 			path = utils;
+			sourceTree = "<group>";
+		};
+		842E7F962732045D007C3DEE /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				842E7F972732047F007C3DEE /* AST.swift */,
+				842E7F9B2732D45D007C3DEE /* Parser.swift */,
+			);
+			path = parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,10 +177,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				842E7F7F272E1DCC007C3DEE /* main.swift in Sources */,
+				842E7F982732047F007C3DEE /* AST.swift in Sources */,
 				842E7F93272F8605007C3DEE /* Stack.swift in Sources */,
 				842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */,
 				842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */,
+				842E7F9C2732D45D007C3DEE /* Parser.swift in Sources */,
 				842E7F8A272E25F1007C3DEE /* Token.swift in Sources */,
+				842E7F9527304420007C3DEE /* InputProto.swift in Sources */,
+				842E7F9A27320A9E007C3DEE /* FileStream.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +309,10 @@
 		842E7F83272E1DCC007C3DEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/include\n";
+				LIBRARY_SEARCH_PATHS = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib\n";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -294,7 +321,10 @@
 		842E7F84272E1DCC007C3DEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/include\n";
+				LIBRARY_SEARCH_PATHS = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib\n";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

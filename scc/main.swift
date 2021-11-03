@@ -25,8 +25,22 @@ struct Main: ParsableCommand {
         if case .none = outputFile {
             outputFile = URL(fileURLWithPath: inputFiles[inputFiles.startIndex])
                 .deletingPathExtension()
-                .relativeString
+                .absoluteString
         }
+        
+        let lexer = Lexer(input: """
+        int main(void) { return 0 + 0 * test(); }
+        int test(void) { return 1 + 1; }
+        void hello(void) { }
+        """)
+        let tokens = lexer.lex()
+        for token in tokens {
+            print(token)
+        }
+        
+        var parser = Parser(tokens: tokens)
+        let fn = try parser.parse()
+        print(fn)
     }
 }
 

@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum TokenType: CustomStringConvertible {
+enum TokenType: CustomStringConvertible, Equatable {
     case leftParen, rightParen, leftBracket, rightBracket, leftBrace, rightBrace
     case comma, semicolon, colon
+    case plus, minus, times, div, mod
     case identifier(String)
     case number(Int)
     case `string`(String)
@@ -22,6 +23,13 @@ enum TokenType: CustomStringConvertible {
         case .rightBrace: return "'}'"
         case .leftBracket: return "'['"
         case .rightBracket: return "']'"
+            
+        case .plus: return "'+'"
+        case .minus: return "'-'"
+            
+        case .times: return "'*'"
+        case .div: return "'/'"
+        case .mod: return "'%'"
             
         case .colon: return "':'"
         case .semicolon: return "';'"
