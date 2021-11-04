@@ -43,16 +43,33 @@ enum Statement: CustomStringConvertible {
         switch self {
         case .expression(let expr): return "\(expr)"
         case .return(let expr): return "return: \(expr)"
+        case .empty: return ""
         }
     }
     
     case expression(Expression)
     case `return`(Expression)
+    case empty
+}
+
+enum OperatorError: Error {
+    case InvalidValueError
 }
 
 enum Operator: CustomStringConvertible {
     case plus, minus
     case times, div, mod
+    
+    init(_ type: TokenType) throws {
+        switch type {
+        case .plus: self = .plus
+        case .minus: self = .minus
+        case .times: self = .times
+        case .div: self = .div
+        case .mod: self = .mod
+        default: throw OperatorError.InvalidValueError
+        }
+    }
     
     var description: String {
         switch self {
@@ -68,14 +85,16 @@ enum Operator: CustomStringConvertible {
 indirect enum Expression: CustomStringConvertible {
     var description: String {
         switch self {
-        case .Number(let value): return "(expr: \(value))"
+        case .number(let value): return "(expr: \(value))"
         case .operation(left: let left, op: let op, right: let right):
             return "\(left) \(op) \(right)"
         case .call(name: let name): return "\(name)()"
         }
     }
     
-    case Number(Int)
+    
+    
+    case number(Int)
     case operation(left: Expression, op: Operator, right: Expression)
     case call(name: String)
 }

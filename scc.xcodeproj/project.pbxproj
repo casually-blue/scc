@@ -12,7 +12,6 @@
 		842E7F8A272E25F1007C3DEE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F89272E25F1007C3DEE /* Token.swift */; };
 		842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F8D272E30DE007C3DEE /* Lexer.swift */; };
 		842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */; };
-		842E7F93272F8605007C3DEE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F92272F8605007C3DEE /* Stack.swift */; };
 		842E7F9527304420007C3DEE /* InputProto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F942730441F007C3DEE /* InputProto.swift */; };
 		842E7F982732047F007C3DEE /* AST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F972732047F007C3DEE /* AST.swift */; };
 		842E7F9A27320A9E007C3DEE /* FileStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F9927320A9E007C3DEE /* FileStream.swift */; };
@@ -37,7 +36,6 @@
 		842E7F89272E25F1007C3DEE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		842E7F8D272E30DE007C3DEE /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
-		842E7F92272F8605007C3DEE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		842E7F942730441F007C3DEE /* InputProto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProto.swift; sourceTree = "<group>"; };
 		842E7F972732047F007C3DEE /* AST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AST.swift; sourceTree = "<group>"; };
 		842E7F9927320A9E007C3DEE /* FileStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStream.swift; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */,
-				842E7F92272F8605007C3DEE /* Stack.swift */,
 				842E7F9927320A9E007C3DEE /* FileStream.swift */,
 			);
 			path = utils;
@@ -178,7 +175,6 @@
 			files = (
 				842E7F7F272E1DCC007C3DEE /* main.swift in Sources */,
 				842E7F982732047F007C3DEE /* AST.swift in Sources */,
-				842E7F93272F8605007C3DEE /* Stack.swift in Sources */,
 				842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */,
 				842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */,
 				842E7F9C2732D45D007C3DEE /* Parser.swift in Sources */,

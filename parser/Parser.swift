@@ -86,8 +86,8 @@ struct Parser {
     
     mutating func parse() throws -> Program {
         var tUs: [TranslationUnit] = []
-        
         while let f =  try parseFunction() {
+            
             tUs.append(TranslationUnit.Function(f))
             if index >= tokens.endIndex {
                 break
@@ -123,13 +123,13 @@ struct Parser {
     
     mutating func parseStatement() throws -> Statement {
         let stmt: Statement
-        do {
-            try match(identifier: "return")
-            let expr = try parseExpression()
-            stmt = Statement.return(expr)
-        } catch ParserError.Expected(expected: _, actual: _) {
-            let expr = try parseExpression()
-            stmt =  Statement.expression(expr)
+        
+        switch try currentToken().type {
+        case .identifier("return"):
+            advanceToken()
+            stmt = Statement.return(try parseExpression())
+        default:
+            stmt = Statement.expression(try parseExpression())
         }
         
         try match(expected: .semicolon)
@@ -144,12 +144,7 @@ struct Parser {
     mutating func parseAddition() throws -> Expression {
         let left = try parseMultiplication()
         do {
-            let op: Operator
-            switch try match(oneOf: [.plus, .minus]) {
-            case .plus: op = .plus
-            case .minus: op = .minus
-            default: throw ParserError.UnknownError
-            }
+            let op = try Operator(try match(oneOf: [.plus, .minus])!)
             
             return Expression.operation(left: left, op: op, right: try parseAddition())
         } catch {
@@ -160,13 +155,7 @@ struct Parser {
     mutating func parseMultiplication() throws -> Expression {
         let left = try parseFactor()
         do {
-            let op: Operator
-            switch try match(oneOf: [.times, .div, .mod]) {
-            case .times: op = .times
-            case .div: op = .div
-            case .mod: op = .mod
-            default: throw ParserError.UnknownError
-            }
+            let op = try Operator(try match(oneOf: [.times, .div, .mod])!)
             
             return Expression.operation(left: left, op: op, right: try parseMultiplication())
         } catch {
@@ -191,7 +180,7 @@ struct Parser {
         } else if case .identifier(_) = (try currentToken()).type {
             return try parseCall()
         } else {
-            return .Number(try getNumber())
+            return .number(try getNumber())
         }
         
     }
