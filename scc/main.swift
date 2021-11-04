@@ -26,18 +26,16 @@ struct Main: ParsableCommand {
             outputFile = URL(fileURLWithPath: inputFiles[inputFiles.startIndex])
                 .deletingPathExtension().path
         }
+        
         // basic code to test on
         // TODO: Replace with actual file input
-        let lexer = Lexer(input: """
-        int main(void) {
-            return 0 +
-                0 * test();
+        let code: String = """
+        fun main() -> int {
+            return 44 + 5;
         }
+        """
         
-        int test(void) {
-            return 1 + 1;
-        }
-        """)
+        let lexer = Lexer(input: code)
         
         // Lex the code
         let tokens = lexer.lex()

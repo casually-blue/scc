@@ -108,17 +108,16 @@ struct Parser {
     
     // parse through a function storing the necessary data
     mutating func parseFunction() throws -> Function {
-        // get the return type
-        let typeName = try getIdentifier()
+        try match(identifier: "fun")
         
-        // get the name of the function
-        let fnName = try getIdentifier()
+        let name = try getIdentifier()
         
         try match(expected: .leftParen)
-        
-        try match(identifier: "void")
-        
         try match(expected: .rightParen)
+        try match(expected: .to)
+        
+        // get the return type
+        let type = try getIdentifier()
         
         try match(expected: .leftBrace)
         
@@ -132,7 +131,7 @@ struct Parser {
         // make sure the function has an end
         try match(expected: .rightBrace)
         
-        return Function(name: fnName, type: typeName, body: stmts)
+        return Function(name: name, type: type, body: stmts)
     }
     
     mutating func parseStatement() throws -> Statement {
