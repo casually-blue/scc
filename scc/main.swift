@@ -26,7 +26,8 @@ struct Main: ParsableCommand {
             outputFile = URL(fileURLWithPath: inputFiles[inputFiles.startIndex])
                 .deletingPathExtension().path
         }
-        
+        // basic code to test on
+        // TODO: Replace with actual file input
         let lexer = Lexer(input: """
         int main(void) {
             return 0 +
@@ -38,18 +39,22 @@ struct Main: ParsableCommand {
         }
         """)
         
+        // Lex the code
         let tokens = lexer.lex()
         for token in tokens {
             print(token)
         }
         
+        // Parse the tokens
         var parser = Parser(tokens: tokens)
-        let fn = try parser.parse()
-        print(fn)
+        let program = try parser.parse()
+        print(program)
         
-        let generator = Generator(ast: fn)
+        // Convert the ast into llvm assembly
+        let generator = Generator(ast: program)
         let assembly = try generator.generate()
         
+        // invoke the llvm compiler to create a real binary
         let assembler = Assembler(assembly: assembly,
                                   output: URL(
                                     fileURLWithPath: outputFile ?? "a.out"))

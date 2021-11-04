@@ -7,6 +7,7 @@
 
 import Foundation
 
+// The type of tokens with associated values if they have one
 enum TokenType: CustomStringConvertible, Equatable {
     case leftParen, rightParen, leftBracket, rightBracket, leftBrace, rightBrace
     case comma, semicolon, colon
@@ -51,6 +52,8 @@ struct FilePoint: CustomStringConvertible {
     }
 }
 
+// A location and length in the code
+// so that the compiler can give good error messages
 struct Span: CustomStringConvertible {
     var position: FilePoint
     var file: String
@@ -61,6 +64,7 @@ struct Span: CustomStringConvertible {
     }
 }
 
+// The main token object with a type and a location
 struct Token: CustomStringConvertible {
     var type: TokenType
     var location: Span
