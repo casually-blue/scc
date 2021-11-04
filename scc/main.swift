@@ -24,8 +24,7 @@ struct Main: ParsableCommand {
         // Set output file to a sane default if it doesn't exist
         if case .none = outputFile {
             outputFile = URL(fileURLWithPath: inputFiles[inputFiles.startIndex])
-                .deletingPathExtension()
-                .absoluteString
+                .deletingPathExtension().path
         }
         
         let lexer = Lexer(input: """
@@ -37,8 +36,6 @@ struct Main: ParsableCommand {
         int test(void) {
             return 1 + 1;
         }
-        
-        void hello(void) { }
         """)
         
         let tokens = lexer.lex()
@@ -49,6 +46,14 @@ struct Main: ParsableCommand {
         var parser = Parser(tokens: tokens)
         let fn = try parser.parse()
         print(fn)
+        
+        let generator = Generator(ast: fn)
+        let assembly = try generator.generate()
+        
+        let assembler = Assembler(assembly: assembly,
+                                  output: URL(
+                                    fileURLWithPath: outputFile ?? "a.out"))
+        try assembler.assemble()
     }
 }
 
