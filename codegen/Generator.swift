@@ -21,14 +21,21 @@ typealias LLVMFunction = LLVM.Function
 ///
 /// Takes an ast of a program and converts it into a llvm representation
 public struct Generator {
-    let ast: Program
-    let module = Module(name: "main")
-    let builder: IRBuilder
-    let machine: TargetMachine
-
-    // create the storage for defined function
-    var functions: [String: LLVMFunction] = [:]
     
+    /// The program's syntax tree
+    let ast: Program
+    
+    /// The LLVM module that holds the program's code
+    let module = Module(name: "main")
+    
+    /// LLVM Builder for the code generation
+    let builder: IRBuilder
+    
+    /// The local machine type for generating object files
+    let machine: TargetMachine
+    
+    /// Dictionary of defined functions for the program's scope
+    var functions: [String: LLVMFunction] = [:]
     
     /// Instantiate a code generator from the ast
     /// - Parameter ast: the syntax tree for the program
@@ -41,13 +48,13 @@ public struct Generator {
         machine = try TargetMachine()
     }
         
-    
     /// Generate an object file from the attached AST
     /// - Parameter file: the URL of the output file
     ///
     mutating func generate(to file: URL) throws {
         // pre-look through functions for their definitions and add them to the current table
         for tu in ast.translationUnits {
+            
             if case let .Function(f) = tu {
                 let fn = builder.addFunction(f.name, type: FunctionType([], IntType.int32))
                 functions[f.name] = fn
@@ -86,7 +93,6 @@ public struct Generator {
                                 .appendingPathExtension("s").path)
     }
     
-    
     /// Generate llvm function from AST
     /// - parameters:
     ///     - function: AST of the function
@@ -123,7 +129,6 @@ public struct Generator {
             return
         }
     }
-    
     
     /// Generate the code for an Expression
     /// - Parameter expression: the AST of the expression
