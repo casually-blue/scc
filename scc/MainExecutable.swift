@@ -5,6 +5,8 @@
 
 import Foundation
 extension Main {
+    
+    /// Run the program with command line arguments from `ArgumentParser`
     mutating func run() throws {
         // deduplicate input files
         inputFiles = Array(Set(inputFiles))
