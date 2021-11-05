@@ -25,14 +25,10 @@ extension Main {
         }
         """
         
-        let lexer = Lexer(input: code)
-        
         // Lex the code
+        let lexer = Lexer(input: code)
         let tokens = lexer.lex()
-        for token in tokens {
-            print("\(token)")
-        }
-        print("\n")
+        tokens.forEach {print($0)}
         
         // Parse the tokens
         var parser = Parser(tokens: tokens)
