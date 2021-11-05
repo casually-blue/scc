@@ -9,12 +9,12 @@ import Foundation
 import ArgumentParser
 
 struct Main: ParsableCommand {
-    @Argument() var inputFiles: [String]
+    @Argument() var inputFiles: [URL]
     @Option(name: [
         .customLong("output"),
         .customShort("o"),
     ])
-    var outputFile: String?
+    var outputFile: URL?
     
     @Flag()
     var verbose: Int
@@ -23,15 +23,18 @@ struct Main: ParsableCommand {
         
         // Set output file to a sane default if it doesn't exist
         if case .none = outputFile {
-            outputFile = URL(fileURLWithPath: inputFiles[inputFiles.startIndex])
-                .deletingPathExtension().path
+            outputFile = inputFiles[inputFiles.startIndex].deletingPathExtension()
         }
         
         // basic code to test on
         // TODO: Replace with actual file input
         let code: String = """
         fun main() -> int {
-            return 44 + 5;
+            return 10 + testing() * 3;
+        }
+        
+        fun testing() -> int {
+            return 7 - 3;
         }
         """
         
@@ -40,22 +43,21 @@ struct Main: ParsableCommand {
         // Lex the code
         let tokens = lexer.lex()
         for token in tokens {
-            print(token)
+            print("\(token)")
         }
+        print("\n")
         
         // Parse the tokens
         var parser = Parser(tokens: tokens)
         let program = try parser.parse()
-        print(program)
+        print("\(program)\n")
         
         // Convert the ast into llvm assembly
-        let generator = Generator(ast: program)
-        let assembly = try generator.generate()
+        var generator = try Generator(ast: program)
+        try generator.generate(to: outputFile!.appendingPathExtension("o"))
         
         // invoke the llvm compiler to create a real binary
-        let assembler = Assembler(assembly: assembly,
-                                  output: URL(
-                                    fileURLWithPath: outputFile ?? "a.out"))
+        let assembler = Assembler(output: outputFile!)
         try assembler.assemble()
     }
 }

@@ -18,6 +18,8 @@
 		8474D75227343F0500FD298C /* LLVMAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8474D75127343F0500FD298C /* LLVMAssembler.swift */; };
 		84FA5260273449CD00924B58 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 84FA525F273449CD00924B58 /* ArgumentParser */; };
 		84FA52622734522F00924B58 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52612734522F00924B58 /* Generator.swift */; };
+		84FA52B62734E5E600924B58 /* LLVM in Frameworks */ = {isa = PBXBuildFile; productRef = 84FA52B52734E5E600924B58 /* LLVM */; };
+		84FA52BD273588A200924B58 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52BC273588A200924B58 /* URLExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +46,7 @@
 		842E7F9B2732D45D007C3DEE /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		8474D75127343F0500FD298C /* LLVMAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLVMAssembler.swift; sourceTree = "<group>"; };
 		84FA52612734522F00924B58 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		84FA52BC273588A200924B58 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FA5260273449CD00924B58 /* ArgumentParser in Frameworks */,
+				84FA52B62734E5E600924B58 /* LLVM in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +106,7 @@
 			children = (
 				842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */,
 				842E7F9927320A9E007C3DEE /* FileStream.swift */,
+				84FA52BC273588A200924B58 /* URLExtensions.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			name = scc;
 			packageProductDependencies = (
 				84FA525F273449CD00924B58 /* ArgumentParser */,
+				84FA52B52734E5E600924B58 /* LLVM */,
 			);
 			productName = scc;
 			productReference = 842E7F7B272E1DCC007C3DEE /* scc */;
@@ -180,6 +186,7 @@
 			mainGroup = 842E7F72272E1DCC007C3DEE;
 			packageReferences = (
 				84FA525E273449CD00924B58 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+				84FA52B42734E5E600924B58 /* XCRemoteSwiftPackageReference "LLVMSwift" */,
 			);
 			productRefGroup = 842E7F7C272E1DCC007C3DEE /* Products */;
 			projectDirPath = "";
@@ -203,6 +210,7 @@
 				842E7F8A272E25F1007C3DEE /* Token.swift in Sources */,
 				842E7F9527304420007C3DEE /* InputProto.swift in Sources */,
 				842E7F9A27320A9E007C3DEE /* FileStream.swift in Sources */,
+				84FA52BD273588A200924B58 /* URLExtensions.swift in Sources */,
 				8474D75227343F0500FD298C /* LLVMAssembler.swift in Sources */,
 				84FA52622734522F00924B58 /* Generator.swift in Sources */,
 			);
@@ -332,7 +340,12 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				"HEADER_SEARCH_PATHS[arch=*]" = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/include\n";
-				LIBRARY_SEARCH_PATHS = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib\n";
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib",
+					/opt/homebrew/Cellar/llvm/13.0.0_1/lib,
+					/opt/homebrew/lib,
+					/opt/homebrew/opt/llvm/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -344,7 +357,12 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				"HEADER_SEARCH_PATHS[arch=*]" = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/include\n";
-				LIBRARY_SEARCH_PATHS = "/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib\n";
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/llvm@11/11.1.0_3/lib",
+					/opt/homebrew/Cellar/llvm/13.0.0_1/lib,
+					/opt/homebrew/lib,
+					/opt/homebrew/opt/llvm/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -382,6 +400,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		84FA52B42734E5E600924B58 /* XCRemoteSwiftPackageReference "LLVMSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:llvm-swift/LLVMSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -389,6 +415,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84FA525E273449CD00924B58 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
+		};
+		84FA52B52734E5E600924B58 /* LLVM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84FA52B42734E5E600924B58 /* XCRemoteSwiftPackageReference "LLVMSwift" */;
+			productName = LLVM;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

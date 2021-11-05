@@ -14,44 +14,10 @@ enum AssemblerError: Error {
 }
 
 struct Assembler {
-    let assembly: String
     let fileName: URL
     
-    init(assembly: String, output fileName: URL) {
-        self.assembly = assembly
+    init(output fileName: URL) {
         self.fileName = fileName
-    }
-    
-    func createLLCProcess() throws -> Process {
-        let llcExecutable = URL(fileURLWithPath: "/opt/homebrew/opt/llvm/bin/llc")
-        
-        // Check if llc actually exists
-        if !FileManager.default.fileExists(atPath: llcExecutable.path) {
-            throw AssemblerError.llcNotFoundError
-        }
-            
-        // Create process with stdin
-        let stdIn = Pipe()
-        
-        let llvmC = Process()
-        llvmC.executableURL = llcExecutable
-        llvmC.standardInput = stdIn
-        
-        // Tell the llc compiler to output as object code
-        // and optimize
-        llvmC.arguments = [
-            "-filetype=obj",
-            "-o", fileName.appendingPathExtension("o").path,
-            "-O3"]
-        
-        // Write the code to the process standard input
-        // so that llc can read it
-        try stdIn.fileHandleForWriting.write(
-            contentsOf: assembly.data(using: .utf8) ?? { throw AssemblerError.invalidAssembly }())
-        // close the pipe so that llc will get the EOI marker
-        try stdIn.fileHandleForWriting.close()
-        
-        return llvmC
     }
     
     func createClangProcess() throws -> Process {
@@ -85,7 +51,7 @@ struct Assembler {
     func assemble() throws {
         // Execute llc and clang to create an object file and then
         // convert it into a platform executable
-        try execProcess(process: try createLLCProcess())
+        //try execProcess(process: try createLLCProcess())
         try execProcess(process: try createClangProcess())
         
         // Delete the temporary object file after compiling the final executable
