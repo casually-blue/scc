@@ -8,8 +8,7 @@
 import Foundation
 
 enum AssemblerError: Error {
-    case llcNotFoundError
-    case clangNotFoundError
+    case assemblerNotFound(String)
     case invalidAssembly
 }
 
@@ -20,25 +19,39 @@ struct Assembler {
         self.fileName = fileName
     }
     
-    func createClangProcess() throws -> Process {
-        let clangExecutable = URL(fileURLWithPath: "/opt/homebrew/opt/llvm/bin/clang")
+    func which(_ program: String) throws -> URL? {
+        let which = URL(fileURLWithPath: "/usr/bin/which")
+        let wProc = Process()
+        wProc.executableURL = which
+        wProc.arguments = [program]
         
-        // check if clang is actually in its place
-        if !FileManager.default.fileExists(atPath: clangExecutable.path) {
-            throw AssemblerError.clangNotFoundError
+        let out = Pipe()
+        wProc.standardOutput = out
+        
+        try wProc.run()
+        wProc.waitUntilExit()
+        
+        if(wProc.terminationStatus != 0) {
+            throw AssemblerError.assemblerNotFound("clang")
         }
+                
+        let val = String(data: out.fileHandleForReading.availableData, encoding: .utf8)!
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return URL(fileURLWithPath: val)
         
+    }
+    
+    func createClangProcess() throws -> Process {
         // Create the process
         let clang = Process()
-        
-        clang.executableURL = clangExecutable
+                
+        clang.executableURL = try which("clang")
         
         // set the process to take the intermediate object file and convert it
         // to a binary
         clang.arguments = [
             fileName.appendingPathExtension("o").path,
             "-o", fileName.path]
-        
         return clang
     }
     

@@ -16,11 +16,14 @@ struct Generator {
     let builder: IRBuilder
     let machine: TargetMachine
 
+    // create the storage for defined function
     var functions: [String: LLVMFunction] = [:]
     
         
     init(ast: Program) throws {
         self.ast =  ast
+        
+        // setup llvm generators
         self.builder = IRBuilder(module: module)
             
         machine = try TargetMachine()
