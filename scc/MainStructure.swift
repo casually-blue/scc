@@ -15,7 +15,7 @@ struct Main: ParsableCommand {
         .customLong("output"),
         .customShort("o"),
     ])
-    var outputFile: URL?
+    var outputFile: URL = URL(fileURLWithPath: "a.out")
     
     @Flag()
     var verbose: Int
