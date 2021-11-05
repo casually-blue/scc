@@ -21,6 +21,7 @@
 		84FA52B62734E5E600924B58 /* LLVM in Frameworks */ = {isa = PBXBuildFile; productRef = 84FA52B52734E5E600924B58 /* LLVM */; };
 		84FA52BD273588A200924B58 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52BC273588A200924B58 /* URLExtensions.swift */; };
 		84FA52BF27358BCB00924B58 /* MainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52BE27358BCB00924B58 /* MainStructure.swift */; };
+		84FA52C52735B91100924B58 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52C42735B91100924B58 /* Documentation.docc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,7 @@
 		84FA52612734522F00924B58 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		84FA52BC273588A200924B58 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		84FA52BE27358BCB00924B58 /* MainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStructure.swift; sourceTree = "<group>"; };
+		84FA52C42735B91100924B58 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		842E7F72272E1DCC007C3DEE = {
 			isa = PBXGroup;
 			children = (
+				84FA52C42735B91100924B58 /* Documentation.docc */,
 				8474D75027343EEB00FD298C /* assembler */,
 				8474D74F27343EE500FD298C /* codegen */,
 				842E7F962732045D007C3DEE /* parser */,
@@ -215,6 +218,7 @@
 				842E7F9527304420007C3DEE /* InputProto.swift in Sources */,
 				842E7F9A27320A9E007C3DEE /* FileStream.swift in Sources */,
 				84FA52BD273588A200924B58 /* URLExtensions.swift in Sources */,
+				84FA52C52735B91100924B58 /* Documentation.docc in Sources */,
 				8474D75227343F0500FD298C /* LLVMAssembler.swift in Sources */,
 				84FA52622734522F00924B58 /* Generator.swift in Sources */,
 			);
@@ -351,6 +355,7 @@
 					/opt/homebrew/opt/llvm/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -368,6 +373,7 @@
 					/opt/homebrew/opt/llvm/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_DOCUMENTATION_COMPILER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

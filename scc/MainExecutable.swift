@@ -2,8 +2,6 @@
 //  main.swift
 //  scc
 //
-//  Created by Admin on 10/30/21.
-//
 
 import Foundation
 extension Main {
@@ -24,22 +22,20 @@ extension Main {
         """
         
         // Lex the code
-        let lexer = Lexer(input: code)
-        let tokens = lexer.lex()
+        let tokens = Lexer(input: code).lex()
         
         // Parse the tokens
         var parser = Parser(tokens: tokens)
-        let program = try parser.parse()
+        let ast = try parser.parse()
         
         // print out the syntax tree
-        print("\(program)\n")
+        print("\(ast)\n")
         
         // Convert the ast into llvm assembly
-        var generator = try Generator(ast: program)
+        var generator = try Generator(ast: ast)
         try generator.generate(to: outputFile.appendingPathExtension("o"))
         
         // invoke the llvm compiler to create a real binary
-        let assembler = Assembler(output: outputFile)
-        try assembler.assemble()
+        try Assembler(output: outputFile).assemble()
     }
 }

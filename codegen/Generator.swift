@@ -10,7 +10,10 @@ import LLVM
 
 typealias LLVMFunction = LLVM.Function
 
-struct Generator {
+/// The Code Generator for the compiler
+///
+/// Takes an ast of a program and converts it into a llvm representation
+public struct Generator {
     let ast: Program
     let module = Module(name: "main")
     let builder: IRBuilder
@@ -19,7 +22,9 @@ struct Generator {
     // create the storage for defined function
     var functions: [String: LLVMFunction] = [:]
     
-        
+    
+    /// Instantiate a code generator from the ast
+    /// - Parameter ast: the syntax tree for the program
     init(ast: Program) throws {
         self.ast =  ast
         
@@ -29,6 +34,11 @@ struct Generator {
         machine = try TargetMachine()
     }
         
+    /// Generates object code to the listed file from the object's AST root
+    /// Also outputs optimized and unoptimized llvm assembly and platform assembly
+    ///
+    /// - parameter file: The output filename
+    /// - throws: I have no clue
     mutating func generate(to file: URL) throws {
         // pre-look through functions for their definitions and add them to the current table
         for tu in ast.translationUnits {
