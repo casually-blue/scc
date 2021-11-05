@@ -15,7 +15,9 @@ extension Main {
         // TODO: Replace with actual file input
         let code: String = """
         fun main() -> int {
-            return 10 + testing() * 3;
+            let a := 5 + 5;
+            let b := a - 2;
+            return 10 + testing() * 3 - (a + b);
         }
         
         fun testing() -> int {

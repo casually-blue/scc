@@ -190,10 +190,13 @@ struct Parser {
     mutating func parseCall() throws -> Expression {
         // get the name of the function called
         let name = try getIdentifier()
-        try match(expected: .leftParen)
-        try match(expected: .rightParen)
-        
-        return .call(name: name)
+        if try currentToken().type == .leftParen {
+            advanceToken()
+            try match(expected: .rightParen)
+            return .call(name: name)
+        } else {
+            return .variable(name: name)
+        }
     }
     
     mutating func parseFactor() throws -> Expression {

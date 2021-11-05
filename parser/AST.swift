@@ -91,6 +91,7 @@ indirect enum Expression: CustomStringConvertible {
         case .operation(left: let left, op: let op, right: let right):
             return "\(left) \(op) \(right)"
         case .call(name: let name): return "\(name)()"
+        case .variable(name: let name): return "\(name)"
         }
     }
     
@@ -99,4 +100,5 @@ indirect enum Expression: CustomStringConvertible {
     case number(Int)
     case operation(left: Expression, op: Operator, right: Expression)
     case call(name: String)
+    case variable(name: String)
 }

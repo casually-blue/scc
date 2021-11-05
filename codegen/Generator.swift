@@ -37,6 +37,8 @@ public struct Generator {
     /// Dictionary of defined functions for the program's scope
     var functions: [String: LLVMFunction] = [:]
     
+    var variables: [String: IRValue] = [:]
+    
     /// Instantiate a code generator from the ast
     /// - Parameter ast: the syntax tree for the program
     init(ast: Program) throws {
@@ -98,7 +100,7 @@ public struct Generator {
     ///     - function: AST of the function
     ///
     /// - Throws: An error of type `GeneratorError`
-    func generateFunction(_ function: Function) throws {
+    mutating func generateFunction(_ function: Function) throws {
         // get the module function reference
         let fn = try functions[function.name] ?? { throw GeneratorError.FunctionNotDeclared(function.name) }()
         
@@ -118,7 +120,7 @@ public struct Generator {
     /// - Parameters:
     ///     - statement: the AST of the statement
     /// - Throws: An error of type `GeneratorError`
-    func generateStatement(_ statement: Statement) throws {
+    mutating func generateStatement(_ statement: Statement) throws {
         switch statement {
         case .expression(_):
             return
@@ -126,7 +128,7 @@ public struct Generator {
         case .return(let expression):
             builder.buildRet(try generateExpression(expression))
         case .assignment(let variable, let expression):
-            throw AssemblerError.invalidAssembly
+            variables[variable] = try generateExpression(expression)
         case .empty:
             return
         }
@@ -162,6 +164,9 @@ public struct Generator {
         case .call(let name):
             let fn = try functions[name] ?? { throw AssemblerError.invalidAssembly }()
             return builder.buildCall(fn, args: [])
+        case .variable(let name):
+            let `var` = try variables[name] ?? { throw AssemblerError.invalidAssembly }()
+            return `var`
         }
     }
 }
