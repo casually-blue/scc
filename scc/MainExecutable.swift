@@ -6,21 +6,8 @@
 //
 
 import Foundation
-import ArgumentParser
-
-struct Main: ParsableCommand {
-    @Argument() var inputFiles: [URL]
-    @Option(name: [
-        .customLong("output"),
-        .customShort("o"),
-    ])
-    var outputFile: URL?
-    
-    @Flag()
-    var verbose: Int
-    
+extension Main {
     mutating func run() throws {
-        
         // Set output file to a sane default if it doesn't exist
         if case .none = outputFile {
             outputFile = inputFiles[inputFiles.startIndex].deletingPathExtension()
@@ -61,6 +48,3 @@ struct Main: ParsableCommand {
         try assembler.assemble()
     }
 }
-
-Main.main()
-

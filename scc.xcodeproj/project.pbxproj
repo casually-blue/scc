@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		842E7F7F272E1DCC007C3DEE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F7E272E1DCC007C3DEE /* main.swift */; };
+		842E7F7F272E1DCC007C3DEE /* MainExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F7E272E1DCC007C3DEE /* MainExecutable.swift */; };
 		842E7F8A272E25F1007C3DEE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F89272E25F1007C3DEE /* Token.swift */; };
 		842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F8D272E30DE007C3DEE /* Lexer.swift */; };
 		842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */; };
@@ -20,6 +20,7 @@
 		84FA52622734522F00924B58 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52612734522F00924B58 /* Generator.swift */; };
 		84FA52B62734E5E600924B58 /* LLVM in Frameworks */ = {isa = PBXBuildFile; productRef = 84FA52B52734E5E600924B58 /* LLVM */; };
 		84FA52BD273588A200924B58 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52BC273588A200924B58 /* URLExtensions.swift */; };
+		84FA52BF27358BCB00924B58 /* MainStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA52BE27358BCB00924B58 /* MainStructure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		842E7F7B272E1DCC007C3DEE /* scc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = scc; sourceTree = BUILT_PRODUCTS_DIR; };
-		842E7F7E272E1DCC007C3DEE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		842E7F7E272E1DCC007C3DEE /* MainExecutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainExecutable.swift; sourceTree = "<group>"; };
 		842E7F89272E25F1007C3DEE /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		842E7F8D272E30DE007C3DEE /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		842E7F90272F81AD007C3DEE /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		8474D75127343F0500FD298C /* LLVMAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLVMAssembler.swift; sourceTree = "<group>"; };
 		84FA52612734522F00924B58 /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		84FA52BC273588A200924B58 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		84FA52BE27358BCB00924B58 /* MainStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStructure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,8 @@
 		842E7F7D272E1DCC007C3DEE /* scc */ = {
 			isa = PBXGroup;
 			children = (
-				842E7F7E272E1DCC007C3DEE /* main.swift */,
+				842E7F7E272E1DCC007C3DEE /* MainExecutable.swift */,
+				84FA52BE27358BCB00924B58 /* MainStructure.swift */,
 			);
 			path = scc;
 			sourceTree = "<group>";
@@ -202,7 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				842E7F7F272E1DCC007C3DEE /* main.swift in Sources */,
+				84FA52BF27358BCB00924B58 /* MainStructure.swift in Sources */,
+				842E7F7F272E1DCC007C3DEE /* MainExecutable.swift in Sources */,
 				842E7F982732047F007C3DEE /* AST.swift in Sources */,
 				842E7F91272F81AD007C3DEE /* CharacterExtensions.swift in Sources */,
 				842E7F8E272E30DE007C3DEE /* Lexer.swift in Sources */,

@@ -49,9 +49,6 @@ struct Assembler {
     }
     
     func assemble() throws {
-        // Execute llc and clang to create an object file and then
-        // convert it into a platform executable
-        //try execProcess(process: try createLLCProcess())
         try execProcess(process: try createClangProcess())
         
         // Delete the temporary object file after compiling the final executable
