@@ -1,3 +1,0 @@
-[submodule "LLVMSwift"]
-	path = LLVMSwift
-	url = git@github.com:llvm-swift/LLVMSwift.git
