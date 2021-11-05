@@ -8,6 +8,13 @@
 import Foundation
 import LLVM
 
+
+/// Code Generation Errors
+enum GeneratorError: Error {
+    case FunctionNotDeclared(String)
+}
+
+
 typealias LLVMFunction = LLVM.Function
 
 /// The Code Generator for the compiler
@@ -34,11 +41,10 @@ public struct Generator {
         machine = try TargetMachine()
     }
         
-    /// Generates object code to the listed file from the object's AST root
-    /// Also outputs optimized and unoptimized llvm assembly and platform assembly
+    
+    /// Generate an object file from the attached AST
+    /// - Parameter file: the URL of the output file
     ///
-    /// - parameter file: The output filename
-    /// - throws: I have no clue
     mutating func generate(to file: URL) throws {
         // pre-look through functions for their definitions and add them to the current table
         for tu in ast.translationUnits {
@@ -80,9 +86,15 @@ public struct Generator {
                                 .appendingPathExtension("s").path)
     }
     
+    
+    /// Generate llvm function from AST
+    /// - parameters:
+    ///     - function: AST of the function
+    ///
+    /// - Throws: An error of type `GeneratorError`
     func generateFunction(_ function: Function) throws {
         // get the module function reference
-        let fn = try functions[function.name] ?? { throw AssemblerError.invalidAssembly }()
+        let fn = try functions[function.name] ?? { throw GeneratorError.FunctionNotDeclared(function.name) }()
         
         // add a unnamed block to the function
         let entry = BasicBlock()
@@ -95,6 +107,11 @@ public struct Generator {
         }
     }
     
+    
+    /// Generate the llvm code for a statement
+    /// - Parameters:
+    ///     - statement: the AST of the statement
+    /// - Throws: An error of type `GeneratorError`
     func generateStatement(_ statement: Statement) throws {
         switch statement {
         case .expression(_):
@@ -107,6 +124,10 @@ public struct Generator {
         }
     }
     
+    
+    /// Generate the code for an Expression
+    /// - Parameter expression: the AST of the expression
+    /// - Returns: A LLVM reference to the value of the expression
     func generateExpression(_ expression: Expression) throws -> IRValue {
         switch expression {
         // create a llvm constant
