@@ -98,13 +98,12 @@ struct Parser {
     // parse translation units and put them in the body of the program
     mutating func parse() throws -> Program {
         var tUs: [TranslationUnit] = []
-        
         while index < tokens.endIndex {
             tUs.append(TranslationUnit.Function(try parseFunction()))
         }
         
         return Program(translationUnits: tUs)
-    }
+        }
     
     // parse through a function storing the necessary data
     mutating func parseFunction() throws -> Function {
@@ -142,10 +141,14 @@ struct Parser {
         case .identifier("return"):
             advanceToken()
             stmt = Statement.return(try parseExpression())
+        case .identifier("let"):
+            advanceToken()
+            let name = try getIdentifier()
+            try match(expected: .assign)
+            stmt = Statement.assignment(name, try parseExpression())
         default:
             stmt = Statement.expression(try parseExpression())
         }
-        
         // make sure the statement ends
         try match(expected: .semicolon)
         

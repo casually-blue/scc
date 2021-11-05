@@ -79,6 +79,7 @@ class Lexer {
                            length: endPos.col - startPos.col))
     }
     
+    
     func getOperatorToken() -> Token? {
         // grab the next character and get its type
         if let c = input.getNext() {
@@ -100,11 +101,18 @@ class Lexer {
             case "+":
                 type = TokenType.plus
             case "-":
-                if .some(">") == input.peekNext() {
-                    _ = input.getNext()
+                if .some(">") == input.getNext() {
                     type = TokenType.to
                 } else {
+                    input.goBack()
                     type = TokenType.minus
+                }
+            case ":":
+                if .some("=") == input.getNext() {
+                    type = TokenType.assign
+                } else {
+                    input.goBack()
+                    type = TokenType.colon
                 }
             case "*":
                 type = TokenType.times
@@ -151,7 +159,7 @@ class Lexer {
                 // actually get the token
                 return getNextToken()
             // get a token that is only one character
-            case "(", ")", "{", "}", ";", "+", "-", "*", "/", "%":
+            case "(", ")", "{", "}", ";", "+", "-", "*", "/", "%", ":":
                 return getOperatorToken()
             default:
                 return nil

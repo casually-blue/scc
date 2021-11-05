@@ -125,6 +125,8 @@ public struct Generator {
         // generate a return from the function
         case .return(let expression):
             builder.buildRet(try generateExpression(expression))
+        case .assignment(let variable, let expression):
+            throw AssemblerError.invalidAssembly
         case .empty:
             return
         }

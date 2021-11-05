@@ -43,12 +43,14 @@ enum Statement: CustomStringConvertible {
         switch self {
         case .expression(let expr): return "\(expr)"
         case .return(let expr): return "return: \(expr)"
+        case .assignment(let variable, let expr): return "assign: \(variable) = \(expr)"
         case .empty: return ""
         }
     }
     
     case expression(Expression)
     case `return`(Expression)
+    case assignment(String, Expression)
     case empty
 }
 

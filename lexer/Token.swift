@@ -14,7 +14,7 @@ enum TokenType: CustomStringConvertible, Equatable {
     case comma, semicolon, colon
     case plus, minus, times, div, mod
     
-    case to
+    case to, assign
     
     case identifier(String)
     case number(Int)
@@ -41,6 +41,8 @@ enum TokenType: CustomStringConvertible, Equatable {
         case .colon: return "':'"
         case .semicolon: return "';'"
         case .comma: return "','"
+            
+        case .assign: return ":="
             
         case .to: return "->"
             
