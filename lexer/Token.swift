@@ -7,16 +7,21 @@
 
 import Foundation
 
-// The type of tokens with associated values if they have one
+/// Token Types with their associated values if necessary
 enum TokenType: CustomStringConvertible, Equatable {
+    
     case leftParen, rightParen, leftBracket, rightBracket, leftBrace, rightBrace
     case comma, semicolon, colon
     case plus, minus, times, div, mod
+    
     case to
+    
     case identifier(String)
     case number(Int)
     case `string`(String)
     
+    
+    /// Generate a string representation for the token's type
     public var description: String {
         switch(self) {
         case .leftParen: return "'('"
@@ -46,32 +51,50 @@ enum TokenType: CustomStringConvertible, Equatable {
     }
 }
 
+
+/// A location in a file or (technically) anything with a row and col position
 struct FilePoint: CustomStringConvertible {
     var row: Int
     var col: Int
     
+    
+    /// String Representation `row:col` of a file position
     public var description: String {
         return "\(row):\(col)"
     }
 }
 
-// A location and length in the code
-// so that the compiler can give good error messages
+
+/// A description of the file and a vector of the token's position and size
 struct Span: CustomStringConvertible {
+    
+    /// The location of the token's start
     var position: FilePoint
+    
+    /// The name of the file the token is from
     var file: String
+    
+    /// The length in characters of the token
     var length: Int
     
+    
+    /// string representation of the token's position
     public var description: String {
         return "\(position):\(file)"
     }
 }
 
-// The main token object with a type and a location
+/// Actual token structure with it's type and location in the source
 struct Token: CustomStringConvertible {
+    
+    /// The Type of the token
     var type: TokenType
+    
+    /// The position of the token
     var location: Span
     
+    
+    /// String representation of the token and its position
     public var description: String {
         return "(\(location)): \(type)"
     }
