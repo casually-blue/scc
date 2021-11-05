@@ -93,7 +93,6 @@ struct Token: CustomStringConvertible {
     /// The position of the token
     var location: Span
     
-    
     /// String representation of the token and its position
     public var description: String {
         return "(\(location)): \(type)"
