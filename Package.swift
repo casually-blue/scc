@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
         name: "scc",
+        platforms: [.macOS(.v12)],
         products: [
                 .executable(name: "scc", targets: ["Compiler"]),
         ],
