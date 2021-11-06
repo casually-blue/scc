@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LLVM
 
 enum AssemblerError: Error {
     case assemblerNotFound(String)
@@ -45,8 +46,11 @@ struct Assembler {
         // Create the process
         let clang = Process()
                 
+#if os(macOS) || os(Linux)
         clang.executableURL = try which("clang")
-        
+#elseif os(Windows)
+        clang.executableURL = URL("clang")
+#endif
         // set the process to take the intermediate object file and convert it
         // to a binary
         clang.arguments = [
