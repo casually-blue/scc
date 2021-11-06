@@ -8,7 +8,7 @@ let package = Package(
         ],
         dependencies: [
                 .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
-                .package(path: "/home/admin_/LLVMSwift"),
+                .package(url: "https://github.com/casually-blue/LLVMSwift", from: "0.8.1"),
         ],
         targets: [
                 .executableTarget(
