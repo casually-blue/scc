@@ -1,3 +1,5 @@
 xcuserdata/
 
 /*.gcno
+.build
+Package.resolved
