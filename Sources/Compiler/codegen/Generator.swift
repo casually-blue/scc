@@ -12,6 +12,7 @@ import LLVM
 /// Code Generation Errors
 enum GeneratorError: Error {
     case FunctionNotDeclared(String)
+    case VarNotDeclared(String)
 }
 
 
@@ -54,6 +55,7 @@ public struct Generator {
     /// - Parameter file: the URL of the output file
     ///
     mutating func generate(to file: URL) throws {
+        let tlScope = VariableScope()
         // pre-look through functions for their definitions and add them to the current table
         for tu in ast.translationUnits {
             
@@ -66,7 +68,7 @@ public struct Generator {
         // generate the function code
         for tu in ast.translationUnits {
             if case let .Function(f) = tu {
-                try generateFunction(f)
+                try generateFunction(f, scope: tlScope)
             }
         }
         
@@ -100,9 +102,11 @@ public struct Generator {
     ///     - function: AST of the function
     ///
     /// - Throws: An error of type `GeneratorError`
-    mutating func generateFunction(_ function: Function) throws {
+    mutating func generateFunction(_ function: Function, scope: VariableScope) throws {
         // get the module function reference
         let fn = try functions[function.name] ?? { throw GeneratorError.FunctionNotDeclared(function.name) }()
+        
+        let fnScope = VariableScope(parent: scope)
         
         // add a unnamed block to the function
         let entry = BasicBlock()
@@ -111,7 +115,7 @@ public struct Generator {
         
         // generate body
         for stmt in function.body {
-            try generateStatement(stmt)
+            try generateStatement(stmt, scope: fnScope)
         }
     }
     
@@ -120,15 +124,15 @@ public struct Generator {
     /// - Parameters:
     ///     - statement: the AST of the statement
     /// - Throws: An error of type `GeneratorError`
-    mutating func generateStatement(_ statement: Statement) throws {
+    mutating func generateStatement(_ statement: Statement, scope: VariableScope) throws {
         switch statement {
         case .expression(_):
             return
         // generate a return from the function
         case .return(let expression):
-            builder.buildRet(try generateExpression(expression))
+            builder.buildRet(try generateExpression(expression, scope: scope))
         case .assignment(let variable, let expression):
-            variables[variable] = try generateExpression(expression)
+            scope.add(name: variable, value: try generateExpression(expression, scope: scope))
         case .empty:
             return
         }
@@ -137,15 +141,15 @@ public struct Generator {
     /// Generate the code for an Expression
     /// - Parameter expression: the AST of the expression
     /// - Returns: A LLVM reference to the value of the expression
-    func generateExpression(_ expression: Expression) throws -> IRValue {
+    func generateExpression(_ expression: Expression, scope: VariableScope) throws -> IRValue {
         switch expression {
         // create a llvm constant
         case .number(let int):
             return IntType.int32.constant(int)
         case .operation(let left, let op, let right):
             // pre-generate each sub-expression
-            let l = try generateExpression(left)
-            let r = try generateExpression(right)
+            let l = try generateExpression(left, scope: scope)
+            let r = try generateExpression(right, scope: scope)
             
             // build this level of the expression based on the operator
             switch op {
@@ -165,7 +169,7 @@ public struct Generator {
             let fn = try functions[name] ?? { throw AssemblerError.invalidAssembly }()
             return builder.buildCall(fn, args: [])
         case .variable(let name):
-            let `var` = try variables[name] ?? { throw AssemblerError.invalidAssembly }()
+            let `var` = try scope.lookup(name) ?? { throw GeneratorError.VarNotDeclared(name) }()
             return `var`
         }
     }
