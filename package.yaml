@@ -1,0 +1,51 @@
+name: scc
+version: 0.1.0-alpha
+github: casually-blue/scc
+synopsis: a compiler in haskell
+author: "Thomas Terry"
+license-file: LICENSE
+category: Compilers/Interpreters
+
+ghc-options: -Wall
+             -fno-warn-name-shadowning
+             -Wcompat
+             -Wincomplete-uni-patterns
+dependencies:
+  - base >= 4.7 && < 5
+  - mtl
+  - array
+  - containers
+  - text
+  - string-conversions
+  - directory
+  - unix
+  - process
+  - filepath
+  - prettyprinter
+  - pretty-simple
+  - llvm-hs-pure >= 9 && < 10
+  - llvm-hs-pretty >= 0.9 && < 1
+  - megaparsec
+  - parser-combinators
+
+library:
+  source-dirs: src
+
+executable:
+  main: Main.hs
+  source-dirs: app
+  dependencies:
+    - optparse-applicative
+    - mcc
+
+tests:
+  testall:
+    main: Testall.hs
+    source-dirs: tests
+    dependencies:
+      - tasty
+      - tasty-golden
+      - tasty-hunit
+      - mcc
+
+default-extensions: OverloadedStrings, LambdaCase

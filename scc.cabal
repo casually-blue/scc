@@ -1,0 +1,113 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.5.
+--
+-- see: https://github.com/sol/hpack
+
+name:           scc
+version:        0.1.0.0
+synopsis:       a compiler in haskell
+category:       Compilers/Interpreters
+homepage:       https://github.com/casually-blue/scc#readme
+bug-reports:    https://github.com/casually-blue/scc/issues
+author:         Thomas Terry
+maintainer:     Thomas Terry
+license:        GPL-3
+license-file:   LICENSE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/casually-blue/scc
+
+library
+  exposed-modules:
+      Scc
+  other-modules:
+      Paths_scc
+  hs-source-dirs:
+      src
+  default-extensions:
+      OverloadedStrings, LambdaCase
+  ghc-options: -Wall -fno-warn-name-shadowing -Wcompat -Wincomplete-uni-patterns
+  build-depends:
+      array
+    , base >=4.7 && <5
+    , containers
+    , directory
+    , filepath
+    , llvm-hs-pretty >=0.9 && <1
+    , llvm-hs-pure ==9.*
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , pretty-simple
+    , prettyprinter
+    , process
+    , string-conversions
+    , text
+    , unix
+  default-language: Haskell2010
+
+executable scc
+  main-is: Main.hs
+  other-modules:
+      Paths_scc
+  hs-source-dirs:
+      app
+  default-extensions:
+      OverloadedStrings, LambdaCase
+  ghc-options: -Wall -fno-warn-name-shadowing -Wcompat -Wincomplete-uni-patterns
+  build-depends:
+      array
+    , base >=4.7 && <5
+    , containers
+    , directory
+    , filepath
+    , llvm-hs-pretty >=0.9 && <1
+    , llvm-hs-pure ==9.*
+    , scc
+    , megaparsec
+    , mtl
+    , optparse-applicative
+    , parser-combinators
+    , pretty-simple
+    , prettyprinter
+    , process
+    , string-conversions
+    , text
+    , unix
+  default-language: Haskell2010
+
+test-suite testall
+  type: exitcode-stdio-1.0
+  main-is: Testall.hs
+  other-modules:
+      Paths_scc
+  hs-source-dirs:
+      tests
+  default-extensions:
+      OverloadedStrings, LambdaCase
+  ghc-options: -Wall -fno-warn-name-shadowing -Wcompat -Wincomplete-uni-patterns
+  build-depends:
+      array
+    , base >=4.7 && <5
+    , containers
+    , directory
+    , filepath
+    , llvm-hs-pretty >=0.9 && <1
+    , llvm-hs-pure ==9.*
+    , mcc
+    , megaparsec
+    , mtl
+    , parser-combinators
+    , pretty-simple
+    , prettyprinter
+    , process
+    , string-conversions
+    , tasty
+    , tasty-golden
+    , tasty-hunit
+    , text
+    , unix
+  default-language: Haskell2010
