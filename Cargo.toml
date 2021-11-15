@@ -7,4 +7,7 @@ edition = "2021"
 
 [dependencies]
 structopt = "0.3.25"
+displaydoc = "0.2"
 llvm = { git= "ssh://git@github.com/casually-blue/llvm-rust.git", branch="master"}
+memmap = "0.7"
+str-macro = "1.0.0"
