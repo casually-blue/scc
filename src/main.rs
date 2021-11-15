@@ -9,7 +9,8 @@ mod lexer;
 
 use {
     structopt::StructOpt,
-    std::error::Error
+    std::error::Error,
+    cli::Arguments,
 };
 
 pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
@@ -24,7 +25,7 @@ pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 /// * Convert to ir
 /// * Generate output
 fn main() -> Result<()> {
-    let options: cli::Arguments = cli::Arguments::from_args();
+    let options = Arguments::from_args();
 
     let mut lexer = lexer::Lexer::new(options.input_file)?;
     let tokens = lexer.tokenize()?;
